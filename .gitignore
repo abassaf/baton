@@ -1,0 +1,6 @@
+# baton handoffs (local only)
+handoff/
+
+# Python
+__pycache__/
+*.pyc
