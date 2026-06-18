@@ -23,16 +23,21 @@ that decides what gets approved; baton carries approved work across the seams.
 
 ## Install
 
-`baton.py` runs anywhere with Python 3 - no dependencies. Wire it into whichever
-agent you use:
+The quickest way is the open [skills](https://github.com/vercel-labs/skills) CLI:
 
-- **Claude Code** - drop the folder in `~/.claude/skills/baton/` (user scope) or
-  `.claude/skills/baton/` (repo scope). `SKILL.md` is picked up automatically.
-- **Codex CLI** - it reads `AGENTS.md`, which is included at the repo root. For
-  global use, add a baton section to `~/.codex/AGENTS.md`.
-- **GitHub Copilot** - it reads `.github/copilot-instructions.md`, included here.
+```bash
+npx skills add abassaf/baton
+```
 
-Or skip the wiring entirely and just run `baton.py` directly in any project.
+It detects your installed agents and adds baton to each - Claude Code, Codex,
+Copilot, Cursor, OpenCode, and 70+ others. Use `-g` for a global install or
+`-a <agent>` to target specific ones.
+
+No dependencies beyond Python 3. To wire it up by hand instead, copy
+`skills/baton/` into your agent's skills directory (for example
+`~/.claude/skills/baton/` or `.claude/skills/baton/`), or just run
+`skills/baton/baton.py` directly in any project. The repo also ships `AGENTS.md`
+(Codex) and `.github/copilot-instructions.md` (Copilot) at the root.
 
 ## Use
 
@@ -78,6 +83,14 @@ scaffolds the package and you fill `STATE.md` by hand.
   transcript, scaffolds the folder, and handles `.gitignore`. It never invents
   decisions it can't know - STATE.md and CONTINUE.md are written by the agent
   that did the work.
+
+## Repo layout
+
+```
+skills/baton/        the skill itself (SKILL.md + baton.py)
+AGENTS.md            Codex entry point
+.github/copilot-instructions.md   Copilot entry point
+```
 
 ## Licence
 
