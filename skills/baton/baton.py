@@ -33,6 +33,7 @@ import re
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
+from typing import Optional
 
 HANDOFF_DIR = Path("handoff")
 
@@ -72,7 +73,7 @@ def _codex_state():
     return None
 
 
-def detect_source() -> Path | None:
+def detect_source() -> Optional[Path]:
     """Return the most likely session-state file, or None.
 
     Order: explicit env override, then the most recently touched of Claude Code
@@ -234,7 +235,7 @@ def _ensure_gitignored():
             fh.write("\n# baton handoffs (local only)\nhandoff/\n")
 
 
-def cmd_new(slug: str, source_override: str | None, want_transcript: bool):
+def cmd_new(slug: str, source_override: Optional[str], want_transcript: bool):
     slug = re.sub(r"[^a-z0-9]+", "-", slug.lower()).strip("-") or "handoff"
     number = _next_number()
     folder = HANDOFF_DIR / f"{number}-{slug}"
